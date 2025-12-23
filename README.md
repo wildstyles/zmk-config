@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > Layout below might be outdated. To check latest version in use check
-> `config.charibdis.keymap` file. It also has more info about special
+> `config/charibdis.keymap` file. It also has more info about special
 > behaviours(`td_sl`...)/combos
 
 ## Main layer
