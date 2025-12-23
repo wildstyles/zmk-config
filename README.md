@@ -1,6 +1,7 @@
 # Keyboard layout for charibdis split keyboard
 
-> [!NOTE] Layout below might be outdated. To check latest version in use check
+> [!NOTE]
+> Layout below might be outdated. To check latest version in use check
 > `config.charibdis.keymap` file. It also has more info about special
 > behaviours(`td_sl`...)/combos
 
