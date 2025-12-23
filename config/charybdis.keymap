@@ -1,0 +1,161 @@
+#include <dt-bindings/zmk/mouse.h>
+#include "keys_uk.h"
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    combos {
+        compatible = "zmk,combos";
+
+        spotlight {
+            bindings = <&kp LG(SPACE)>;
+            key-positions = <17 18>;
+        };
+
+        en {
+            bindings = <&kp LS(LA(LC(Z)))>;
+            key-positions = <28 29>;
+        };
+
+        uk {
+            bindings = <&kp LS(LA(LC(X)))>;
+            key-positions = <40 41>;
+        };
+
+        enter {
+            bindings = <&kp ENTER>;
+            key-positions = <49 52>;
+        };
+
+        enter2 {
+            bindings = <&kp ENTER>;
+            key-positions = <43 44>;
+        };
+    };
+
+    behaviors {
+        td_sl: tap_dance_slash_backslash {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp SLASH>, <&kp BACKSLASH>, <&kp PIPE>;
+        };
+
+        td_sc: tap_dance_semicolon_colon {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp SEMICOLON>, <&kp COLON>;
+        };
+
+        td_br: tap_dance_braces {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp LEFT_BRACE>, <&kp RIGHT_BRACE>;
+        };
+
+        td_dc: tap_dance_dot_comma_for_uk {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp LS(LA(LC(F1)))>, <&kp LS(LA(LC(F2)))>;
+        };
+
+        td_qoc: tap_dance_qoutes {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp SINGLE_QUOTE>, <&kp DOUBLE_QUOTES>;
+        };
+
+        htd: htd_kp_column_semicolumn {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            bindings = <&kp>, <&td_qoc>;
+
+            // hold-trigger-key-positions = <KB_THUMBS KB_RIGHT>;
+            // retro-tap;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        BASE {
+            bindings = <
+//    ┌───────────┬───────────┬────────┬─────┬─────────────┬─────┐   ┌─────┬──────────────┬─────┬──────────┬───────────┬───────────┐
+//    │   capsw   │    f1     │   f5   │     │             │     │   │     │              │     │ bt_sel 0 │ bt_sel 1  │  bt_clr   │
+//    ├───────────┼───────────┼────────┼─────┼─────────────┼─────┤   ├─────┼──────────────┼─────┼──────────┼───────────┼───────────┤
+//    │     `     │     Q     │   W    │  F  │      P      │  B  │   │  J  │      L       │  U  │    Y     │     :     │     ;     │
+//    ├───────────┼───────────┼────────┼─────┼─────────────┼─────┤   ├─────┼──────────────┼─────┼──────────┼───────────┼───────────┤
+//    │   kp_-    │     A     │ lt 1 R │  S  │      T      │  G  │   │  M  │      N       │  E  │  lt 1 I  │     O     │  &td_qoc  │
+//    ├───────────┼───────────┼────────┼─────┼─────────────┼─────┤   ├─────┼──────────────┼─────┼──────────┼───────────┼───────────┤
+//    │ mt lgui _ │ mt lsft Z │ lt 2 X │  C  │      D      │  V  │   │  K  │      H       │  ,  │  lt 2 .  │ mt rsft / │ mt lalt $ │
+//    └───────────┴───────────┴────────┼─────┼─────────────┼─────┤   ├─────┼──────────────┼─────┴──────────┴───────────┴───────────┘
+//                                     │     │ mt lctl spc │     │   │     │ mt caps bspc │
+//                                     └─────┼─────────────┼─────┤   ├─────┼──────────────┘
+//                                           │             │     │   │     │
+//                                           └─────────────┴─────┘   └─────┘
+  &caps_word                    &kp F1             &kp F5    &none   &none             &none       &none   &none           &none       &bt BT_SEL 0   &bt BT_SEL 1            &bt BT_CLR
+  &kp GRAVE                     &kp Q              &kp W     &kp F   &kp P             &kp B       &kp J   &kp L           &kp U       &kp Y          &kp COLON               &kp SEMICOLON
+  &kp KP_MINUS                  &kp A              &lt 1 R   &kp S   &kp T             &kp G       &kp M   &kp N           &kp E       &lt 1 I        &kp O                   &td_qoc
+  &mt LEFT_COMMAND UNDERSCORE   &mt LEFT_SHIFT Z   &lt 2 X   &kp C   &kp D             &kp V       &kp K   &kp H           &kp COMMA   &lt 2 DOT      &mt RIGHT_SHIFT SLASH   &mt LEFT_ALT DOLLAR
+                                                             &none   &mt LCTRL SPACE   &none       &none   &mt CAPS BSPC
+                                                                     &none             &none       &none
+            >;
+        };
+
+        SYMNUM {
+            bindings = <
+//    ┌──────┬─────┬─────┬─────┬──────┬──────┐   ┌──────┬────────┬─────┬────────┬─────┬─────┐
+//    │      │     │     │     │      │      │   │      │        │     │        │     │     │
+//    ├──────┼─────┼─────┼─────┼──────┼──────┤   ├──────┼────────┼─────┼────────┼─────┼─────┤
+//    │  ~   │  !  │  1  │  2  │  3   │  *   │   │  %   │   (    │  )  │   [    │  ]  │  ^  │
+//    ├──────┼─────┼─────┼─────┼──────┼──────┤   ├──────┼────────┼─────┼────────┼─────┼─────┤
+//    │ kp_+ │ tab │  4  │  5  │  6   │ kp_= │   │ left │  down  │ up  │  rght  │  &  │  |  │
+//    ├──────┼─────┼─────┼─────┼──────┼──────┤   ├──────┼────────┼─────┼────────┼─────┼─────┤
+//    │  @   │  #  │  7  │  8  │  9   │  0   │   │ kp_= │ &td_br │  <  │ &td_dc │  ?  │  \  │
+//    └──────┴─────┴─────┼─────┼──────┼──────┤   ├──────┼────────┼─────┴────────┴─────┴─────┘
+//                       │     │ lclk │      │   │      │  rclk  │
+//                       └─────┼──────┼──────┤   ├──────┼────────┘
+//                             │      │      │   │      │
+//                             └──────┴──────┘   └──────┘
+  &none         &none             &none          &none          &none          &none              &none            &none                  &none                   &none              &none               &none
+  &kp TILDE     &kp EXCLAMATION   &kp NUMBER_1   &kp NUMBER_2   &kp NUMBER_3   &kp ASTRK          &kp PERCENT      &kp LEFT_PARENTHESIS   &kp RIGHT_PARENTHESIS   &kp LEFT_BRACKET   &kp RIGHT_BRACKET   &kp CARET
+  &kp KP_PLUS   &kp TAB           &kp NUMBER_4   &kp NUMBER_5   &kp NUMBER_6   &kp KP_EQUAL       &kp LEFT_ARROW   &kp DOWN_ARROW         &kp UP_ARROW            &kp RIGHT_ARROW    &kp AMPS            &kp PIPE
+  &kp AT        &kp HASH          &kp NUMBER_7   &kp NUMBER_8   &kp NUMBER_9   &kp N0             &kp KP_EQUAL     &td_br                 &kp LESS_THAN           &td_dc             &kp QUESTION        &kp BACKSLASH
+                                                 &none          &mkp LCLK      &none              &none            &mkp RCLK
+                                                                &none          &none              &none
+            >;
+        };
+
+        SYMNUM1 {
+            bindings = <
+//    ┌─────┬──────┬─────┬─────┬─────┬──────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
+//    │     │      │     │     │     │      │   │     │     │     │     │     │     │
+//    ├─────┼──────┼─────┼─────┼─────┼──────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
+//    │     │ vold │     │     │     │ volu │   │     │     │     │     │     │     │
+//    ├─────┼──────┼─────┼─────┼─────┼──────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
+//    │     │      │     │     │     │      │   │     │     │     │     │     │     │
+//    ├─────┼──────┼─────┼─────┼─────┼──────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
+//    │     │ bri- │     │     │     │ bri+ │   │     │     │     │     │     │     │
+//    └─────┴──────┴─────┼─────┼─────┼──────┤   ├─────┼─────┼─────┴─────┴─────┴─────┘
+//                       │     │     │      │   │     │     │
+//                       └─────┼─────┼──────┤   ├─────┼─────┘
+//                             │     │      │   │     │
+//                             └─────┴──────┘   └─────┘
+  &none   &none                  &none   &none   &none   &none                      &none   &none   &none   &none   &none   &none
+  &none   &kp C_VOL_DN           &none   &none   &none   &kp C_VOLUME_UP            &none   &none   &none   &none   &none   &none
+  &none   &none                  &none   &none   &none   &none                      &none   &none   &none   &none   &none   &none
+  &none   &kp C_BRIGHTNESS_DEC   &none   &none   &none   &kp C_BRIGHTNESS_INC       &none   &none   &none   &none   &none   &none
+                                         &none   &none   &none                      &none   &none
+                                                 &none   &none                      &none
+            >;
+        };
+    };
+};
